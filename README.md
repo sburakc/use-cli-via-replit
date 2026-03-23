@@ -1,30 +1,41 @@
 # Run Claude Code & OpenAI Codex on Replit (Persistently)
 
-> **Stop paying $25+/mo for Replit Agent.** Use Claude Code or OpenAI Codex directly in any Replit workspace — with persistent login, history, and sessions that survive restarts.
+> Use Claude Code or OpenAI Codex directly in any Replit workspace — with persistent login, history, and sessions that survive restarts.
 
-I've been running both **Claude Code** and **OpenAI Codex CLI** on Replit for months as my daily development environment. After seeing the same questions pop up on Reddit and forums, I decided to share my setup.
+## What is this?
 
-## Why?
+Replit gives you a full cloud development environment with a terminal — and that terminal can run *any* CLI tool, including AI coding assistants like **Claude Code** and **OpenAI Codex**.
 
-| | Replit Agent | Claude Code on Replit | Codex on Replit |
+Replit actually encourages this. They published a [video walkthrough](https://www.youtube.com/watch?v=VIDEO_ID) showing how to set up Claude Code on Replit, and their Secrets system (`CLAUDE_CONFIG_DIR`, `CODEX_HOME`) makes persistent config straightforward.
+
+I've been using both tools on Replit as my daily development setup for months. This repo documents everything I've learned — including workarounds for edge cases that aren't covered in the official docs.
+
+## Options on Replit
+
+Replit offers multiple ways to code with AI. Each has its strengths:
+
+| | Replit Agent | Claude Code | OpenAI Codex |
 |---|---|---|---|
-| **Cost** | $25–97/mo (Replit plan) | Free (Anthropic account) or API usage | Free (ChatGPT Plus) or API usage |
-| **Model** | Replit's choice | Claude Opus / Sonnet (your choice) | GPT-4.1 / GPT-5.4 (your choice) |
+| **Best for** | No-code / low-code, rapid prototyping | Deep codebase work, MCP integrations | Fast iteration, GPT model access |
+| **Setup** | Built-in, zero config | This guide (~5 min) | This guide (~3 min) |
+| **Model** | Replit-optimized | Claude Opus / Sonnet (your choice) | GPT-4.1 / GPT-5.4 (your choice) |
 | **Full codebase access** | Yes | Yes | Yes |
 | **MCP / Plugins** | No | Yes | No |
-| **Terminal access** | Limited | Full | Full |
-| **Persistent sessions** | N/A | Yes (with this guide) | Yes (with this guide) |
+| **Terminal access** | Managed | Full shell | Full shell |
+| **Persistent sessions** | Built-in | Yes (with this guide) | Yes (with this guide) |
 
-## The Problem
+> Replit Agent is great for getting started quickly — especially if you prefer a visual, managed experience. Claude Code and Codex give you more control over models, tools, and workflow if you want a CLI-based approach.
 
-Both Claude Code and Codex store their config in the home directory (`~/.claude/` and `~/.codex/`), which **Replit wipes on every restart**. This means you'd lose your login, history, and settings every time.
+## The Persistence Problem
 
-These guides solve that by redirecting config to your persistent `/home/runner/workspace/` directory.
+Both Claude Code and Codex store their config in the home directory (`~/.claude/` and `~/.codex/`). On Replit, the home directory outside of `/home/runner/workspace/` is ephemeral — it resets on restart.
+
+The fix is simple: redirect config to your persistent workspace using Replit Secrets. That's what these guides walk you through.
 
 ## Guides
 
-- **[Claude Code Setup](CLAUDE_CODE_SETUP.md)** — Full setup with persistent login, MCP servers, plugins, and symlink fix for the plugin marketplace bug
-- **[Codex Setup](CODEX_SETUP.md)** — Full setup with persistent login, history, and session resume
+- **[Claude Code Setup](CLAUDE_CODE_SETUP.md)** — Persistent login, MCP servers, plugins, and symlink fix for the plugin marketplace bug
+- **[Codex Setup](CODEX_SETUP.md)** — Persistent login, history, and session resume
 
 ## Quick Start
 
@@ -64,13 +75,17 @@ codex --dangerously-bypass-approvals-and-sandbox
 > Yes — that's the whole point of this setup. Auth tokens, history, and sessions are stored in your workspace directory, which Replit preserves.
 
 **Q: Do I still need a Replit paid plan?**
-> You need any Replit plan that gives you a Shell (even the free tier works for public repls). You do NOT need the Replit Core/Agent plan.
+> You need any Replit plan that gives you a Shell. This setup works alongside any Replit plan — it's not a replacement for Replit, it's an additional tool you can use within it.
 
 ## Background
 
-I built [DocusPocus](https://docuspocus.com), a creator-focused document sharing platform, entirely on Replit using Claude Code and Codex as my AI pair programmers. This setup has been my daily driver since early 2026.
+I built [DocusPocus](https://docuspocus.com), a creator-focused document sharing platform, entirely on Replit using Claude Code and Codex as my AI pair programmers. Replit's cloud environment made it possible to develop from anywhere, and these CLI tools gave me the flexibility to choose my preferred AI models.
 
 After months of refinement — fixing plugin bugs, solving persistence issues, and documenting workarounds — I figured this knowledge shouldn't stay buried in my private docs.
+
+## Acknowledgments
+
+Thanks to [Replit](https://replit.com) for building a cloud dev environment that's flexible enough to run any CLI tool, and for actively supporting third-party AI integrations through their Secrets system and documentation.
 
 ## Contributing
 
